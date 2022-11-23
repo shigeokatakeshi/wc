@@ -30,7 +30,7 @@ wc = (
 )
 
 
-i_jpy = 100
+# i_jpy = 100
 
 
 @app.route("/")
@@ -43,14 +43,21 @@ def fx_currency():
     if request.method == "POST":
         currency = request.form["currency1"]
         if currency == "JPY":
-            # i_jpy = int(request.form["number"])
+            i_jpy = int(request.form["number"])
             usd1 = (i_jpy * 0.44) / usd
             eur1 = (i_jpy * 0.155) / eur
-            gbp1 = (i_jpy * 0.085) / gbp
-            cny1 = (i_jpy * 0.065) / cny
-            aud1 = (i_jpy * 0.035) / aud
+            jpy1 = (i_jpy * 8.5) / jpy
+            gbp1 = (i_jpy * 0.065) / gbp
+            cny1 = (i_jpy * 0.035) / cny
             etc1 = (i_jpy * 0.19) / wc
-            jpy_wc = [usd1, eur1, gbp1, cny1, aud1, etc1]
+            jpy_wc = [
+                round(usd1, 1),
+                round(eur1, 1),
+                round(jpy1, 1),
+                round(gbp1, 1),
+                round(cny1, 1),
+                round(etc1, 1),
+            ]
             print(jpy_wc)
             print(request.form["number"])
             fx_currency = jpy_wc
@@ -58,19 +65,9 @@ def fx_currency():
         # elif currency == "USD":
         #     fx_currency = fx_currency.USD()
 
-        # elif currency == "EUR":
-        #     fx_currency = fx_currency.EUR()
-
-        # elif currency == "GBP":
-        #     fx_currency = fx_currency.GBP()
-
-        # elif currency == "CNY":
-        #     fx_currency = fx_currency.CNY()
-
-        # elif currency == "AUD":
-        #     fx_currency = fx_currency.AUD()
-
-        return render_template("measurement.html", fx_currency=fx_currency)
+        return render_template(
+            "measurement.html", fx_currency=fx_currency, i_jpy=i_jpy, currency=currency
+        )
 
     return redirect("/")
 
