@@ -3,6 +3,8 @@ from flask import render_template
 from flask import redirect
 from flask import request
 
+from fx_day_rate import df
+
 
 app = Flask(__name__)
 
@@ -51,14 +53,15 @@ def fx_currency():
             cny1 = (i_jpy * 0.035) / cny
             etc1 = (i_jpy * 0.19) / wc
             jpy_wc = [
-                round(usd1, 1),
-                round(eur1, 1),
-                round(jpy1, 1),
-                round(gbp1, 1),
-                round(cny1, 1),
-                round(etc1, 1),
+                round(usd1),
+                round(eur1),
+                round(jpy1),
+                round(gbp1),
+                round(cny1),
+                round(etc1),
             ]
             print(jpy_wc)
+            print(df.iloc[-1, 1])
             print(request.form["number"])
             fx_currency = jpy_wc
 

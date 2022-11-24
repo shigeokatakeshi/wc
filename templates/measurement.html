@@ -8,14 +8,14 @@
 </head>
 <body>
     <h1>結果</h1>
-    あなたの資産{{ i_jpy }}{{ currency }}を世界外国為替市場のシェア別に分類しました。<br>
-    これを参考に保有すると資産の堅牢性が向上します。<br><br>
-    {{ fx_currency[0] }} ドル<br>
-    {{ fx_currency[1] }} ユーロ<br>
-    {{ fx_currency[2] }} 円<br>
-    {{ fx_currency[3] }} ポンド<br>
-    {{ fx_currency[4] }} 中国元<br>
-    {{ fx_currency[5] }} その他(WC)<br>
+    あなたの資産{{ "{:,}".format(i_jpy) }}{{ currency }}を世界外国為替市場のシェア別に分類しました。<br>
+    これを参考に外貨を保有すると資産の堅牢性が向上します。<br><br>
+    {{ "{:,}".format(fx_currency[0]) }} ドル<br>
+    {{ "{:,}".format(fx_currency[1]) }} ユーロ<br>
+    {{ "{:,}".format(fx_currency[2]) }} 円<br>
+    {{ "{:,}".format(fx_currency[3]) }} ポンド<br>
+    {{ "{:,}".format(fx_currency[4]) }} 中国元<br>
+    {{ "{:,}".format(fx_currency[5]) }} その他(WC)<br>
     <br>
     <br>
     参照:「Triennial Central Bank Survey of Foreign Exchange and Over-the-counter (OTC) Derivatives Markets in 2022」
