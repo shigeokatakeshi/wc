@@ -2,6 +2,14 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib
 import japanize_matplotlib
+from PIL import Image
+
+
+# リサイズ前の画像を読み込み
+
+# 読み込んだ画像の幅、高さを取得し半分に
+# 画像をリサイズする
+# ファイルを保存
 
 
 # これが無いとdef内で上手く動かない
@@ -55,6 +63,13 @@ def fx_chart(currency, p_wc):
     )
     # plt.legend()
     plt.title("世界為替市場の通貨割合")
+    plt.subplots_adjust(left=0, right=1.1, bottom=0, top=0.95)
     # plt.show()
     # 画像を保存
-    plt.savefig("static/images/image.png")
+    plt.savefig("static/images/image.png", dpi=300)
+
+    img_file = "static/images/image.png"
+    img = Image.open(img_file)
+    (width, height) = (400, 330)
+    img_resized = img.resize((width, height))
+    img_resized.save("static/images/image.png", quality=400)
