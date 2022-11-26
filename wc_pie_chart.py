@@ -57,4 +57,4 @@ def fx_chart(currency, p_wc):
     plt.title("世界為替市場の通貨割合")
     # plt.show()
     # 画像を保存
-    plt.savefig("templates/images/image.png")
+    plt.savefig("static/images/image.png")

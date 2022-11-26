@@ -8,8 +8,8 @@ from fx_day_rate import df
 from wc_propo import df3
 from wc_pie_chart import fx_chart
 
-# flaskで画像を使う場合は画像ファイルは静的なファイルなのでディレクトリを記述して，インスタンス化
-app = Flask(__name__, static_folder="./templates/images")
+
+app = Flask(__name__)
 
 
 # みずほ銀行のHPからスクレーパーにより抽出
