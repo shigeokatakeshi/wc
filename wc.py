@@ -2,9 +2,11 @@ from flask import Flask
 from flask import render_template
 from flask import redirect
 from flask import request
+import os
 
 from fx_day_rate import df
 from wc_propo import df3
+from wc_pie_chart import fx_chart
 
 # flaskで画像を使う場合は画像ファイルは静的なファイルなのでディレクトリを記述して，インスタンス化
 app = Flask(__name__, static_folder="./templates/images")
@@ -38,19 +40,6 @@ p_etc = (df3.iloc[-1, 9]) / 200
 # グラフを描写するために割合をリストにしてwc_pie_cahartへ渡しています
 p_wc = [p_usd, p_eur, p_jpy, p_gbp, p_cny, p_aud, p_cad, p_chf, p_hkd, p_etc]
 
-# その他を計算する単位を作る為、取り出した通貨の最小単位を合計して100で割る
-# wc_min = (
-#     float(usd)
-#     + float(eur)
-#     + float(usd)
-#     + float(gbp)
-#     + float(cny)
-#     + float(aud)
-#     + float(cad)
-#     + float(chf)
-#     + float(hkd)
-# )
-# wc_min = wc_min / 9
 
 # 各通貨シェアを掛けた数値をetcの係数とする。
 etc = (
@@ -68,7 +57,6 @@ etc = (
 
 # wcの基準 令和4年11月22日の10円を、FXレートと世界シェアで1wcとして決める
 # 1wcの内訳は「0.039403321137067265usd 0.010636837771067801eur 0.8500000000000001jpy 0.0038605452277721683gbp 0.017658930373360245, 0.0031904711262363073, 0.0028360748723766306, 0.001684976747320887, 0.00823271130625686]
-
 b_usd = (10 * p_usd) / 142.12
 b_eur = (10 * p_eur) / 145.72
 b_jpy = (10 * p_jpy) / 1
@@ -79,6 +67,7 @@ b_cad = (10 * p_cad) / 105.78
 b_chf = (10 * p_chf) / 148.37
 b_hkd = (10 * p_hkd) / 18.22
 b_etc = (10 * p_etc) / 142.12
+
 
 # その他分のシェアはドルのシェアに合計しておく
 b_usd = b_usd + b_etc
@@ -109,6 +98,9 @@ def index():
 def fx_currency():
     if request.method == "POST":
         currency = request.form["currency1"]
+        
+        # wc_pie_chart 内で使用するdef関数
+        fx_chart(currency, p_wc)
 
         # 円以外が選択されると各通貨の為替レートを掛ける
         if currency == "円":
@@ -119,6 +111,7 @@ def fx_currency():
         if currency == "ユーロ":
             i_jpy = int(request.form["number"])
             i_jpy = i_jpy * eur
+
         # 入力した金額にシェア割を掛けて、為替で割る
         usd1 = (i_jpy * p_usd) / usd
         eur1 = (i_jpy * p_eur) / eur
@@ -157,7 +150,7 @@ def fx_currency():
         if currency == "ユーロ":
             i_jpy = i_jpy / eur
             i_jpy = round(i_jpy)
-
+    # 結果表示のページで表示するために返す関数
     return render_template(
         "measurement.html",
         fx_currency=fx_currency,
