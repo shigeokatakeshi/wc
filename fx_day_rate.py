@@ -18,6 +18,8 @@ href_list.index("https://www.mizuhobank.co.jp/market/csv/tm_quote.csv")
 csv_path = href_list[119]
 
 df = pd.read_csv(csv_path, encoding="shift_jis")
+df.to_csv("fx_mizuho_rate.csv")
 
-#print(df)
-#print(df.iloc[-1, 1])
+
+# print(df)
+# print(df.iloc[-1, 1])

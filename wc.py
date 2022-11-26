@@ -3,25 +3,28 @@ from flask import render_template
 from flask import redirect
 from flask import request
 import os
+import pandas as pd
 
-from fx_day_rate import df
 from wc_propo import df3
 from wc_pie_chart import fx_chart
 
 
 app = Flask(__name__)
 
+df = pd.read_csv("fx_mizuho_rate.csv")
+
+
 
 # みずほ銀行のHPからスクレーパーにより抽出
-usd = float(df.iloc[-1, 1])
-eur = float(df.iloc[-1, 3])
+usd = float(df.iloc[-1, 2])
+eur = float(df.iloc[-1, 4])
 jpy = 1
-gbp = float(df.iloc[-1, 2])
-cny = float(df.iloc[-1, 14])
-aud = float(df.iloc[-1, 9])
-cad = float(df.iloc[-1, 4])
-chf = float(df.iloc[-1, 5])
-hkd = float(df.iloc[-1, 15])
+gbp = float(df.iloc[-1, 3])
+cny = float(df.iloc[-1, 15])
+aud = float(df.iloc[-1, 10])
+cad = float(df.iloc[-1, 5])
+chf = float(df.iloc[-1, 6])
+hkd = float(df.iloc[-1, 16])
 
 l_currency = [usd, eur, gbp, cny, aud, cad, chf, hkd]
 
