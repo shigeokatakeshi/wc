@@ -14,7 +14,6 @@ app = Flask(__name__)
 df = pd.read_csv("fx_mizuho_rate.csv")
 
 
-
 # みずほ銀行のHPからスクレーパーにより抽出
 usd = float(df.iloc[-1, 2])
 eur = float(df.iloc[-1, 4])
@@ -101,19 +100,22 @@ def index():
 def fx_currency():
     if request.method == "POST":
         currency = request.form["currency1"]
-        
+
         # wc_pie_chart 内で使用するdef関数
-        fx_chart(currency, p_wc)
+        # fx_chart(currency, p_wc)
 
         # 円以外が選択されると各通貨の為替レートを掛ける
         if currency == "円":
             i_jpy = int(request.form["number"])
+            kubun = 1
         if currency == "ドル":
             i_jpy = int(request.form["number"])
             i_jpy = i_jpy * usd
+            kubun = 2
         if currency == "ユーロ":
             i_jpy = int(request.form["number"])
             i_jpy = i_jpy * eur
+            kubun = 3
 
         # 入力した金額にシェア割を掛けて、為替で割る
         usd1 = (i_jpy * p_usd) / usd
@@ -160,6 +162,7 @@ def fx_currency():
         i_jpy=i_jpy,
         currency=currency,
         l_currency=l_currency,
+        kubun=kubun,
     )
 
     return redirect("/")
@@ -173,4 +176,4 @@ def measurement():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host="0.0.0.0"debug=True)

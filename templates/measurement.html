@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>世界分散通貨(wc)</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </head>
@@ -29,16 +29,16 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="閉じる"></button>
       </div>
       <div class="modal-body">
-              0.04ドル<br>
-              0.01ユーロ <br>
-              0.85円 <br>
-              0.003ポンド <br> 
-              0.02中国元 <br>
-              0.003オーストラリアドル <br>
-              0.003カナダドル <br>
-              0.002スイスフラン <br>
-              0.008香港ドル <br>
-              ※令和4年11月22日の10円を世界為替市場の通貨割合で1wcと設定
+              0.04  ドル<br>
+              0.01  ユーロ <br>
+              0.85  円  <br>
+              0.003 ポンド <br> 
+              0.02  中国元 <br>
+              0.003 オーストラリアドル <br>
+              0.003 カナダドル <br>
+              0.002 スイスフラン <br>
+              0.008 香港ドル <br>
+              ※令和4年11月22日の10円を為替市場の通貨割合で1wcと設定
                
       </div>
       <div class="modal-footer">
@@ -82,7 +82,7 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-6 col-md-1 text-right"><br>
+    <div class="col-6 col-md-2 text-right"><br>
     {{ "{:,}".format(fx_currency[0]) }} <br>
     {{ "{:,}".format(fx_currency[1]) }} <br>
     {{ "{:,}".format(fx_currency[2]) }} <br>
@@ -109,18 +109,26 @@
 
 
  </div>
-    <div class="col-6 col-md-8"><img src="static/images/image.png"><br>参照:「Triennial Central Bank Survey of Foreign Exchange and Over-the-counter (OTC) Derivatives Markets in 2022」
-            <a href="https://www.bis.org/statistics/rpfx22.htm" target="_blank">BIS-HP</a></div>
+    <div class="col-6 col-md-7">
+
+        {% if kubun==1 %}
+        <img src="static/images/image(jpy).png">
+        {% elif kubun==2 %}
+        <img src="static/images/image(usd).png">
+        {% else %}
+        <img src="static/images/image(eur).png">
+        {% endif %}
+          
+        <br>参照:「Triennial Central Bank Survey of Foreign Exchange and Over-the-counter (OTC) Derivatives Markets in 2022」
+            <a href="https://www.bis.org/statistics/rpfx22.htm" target="_blank">BIS-HP</a></div><br>
   </div>
 </div>
 
 <div class="container">
   <div class="row">
-
-
+    <br>
+    <a href="/" class="btn btn-secondary">戻る</a>
   </div>
 </div>
-
-    <a href="/">戻る</a>
 </body>
 </html>
